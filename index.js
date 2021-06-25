@@ -25,6 +25,13 @@ client.connect((err) => {
   const ordersCollection = client.db("enfix").collection("order");
   const reviewCollection = client.db("enfix").collection("review");
 
+  app.get('/isAdminLoggedIn/:email', (req, res) => {
+    adminsCollection.find({adminEmail: req.params.email})
+    .toArray((err, items) => {
+      res.send(items);
+    })
+  })
+
   app.post('/addService', (req, res) => {
     const newService = req.body;
     console.log('adding new event: ', newService);
@@ -66,6 +73,14 @@ client.connect((err) => {
     })
   })
 
+  app.get('/loadAllBookingsByEmail/:email', (req, res) => {
+    console.log(req.params.email);
+    ordersCollection.find({email: req.params.email})
+    .toArray((err, service) => {
+      res.send(service);
+    })
+  })
+
   app.post("/addOrderedService", (req, res) => {
     const order = req.body;
     ordersCollection.insertOne(order)
@@ -74,28 +89,20 @@ client.connect((err) => {
     });
   });
 
-
-
-
-  app.patch("/updateOrderedService", (req, res) => {
-      
-    const orderId = req.body.id;
-    console.log(orderId);
-    const orderStatus = req.body.status;
-    console.log(orderStatus);
-
+  app.patch('/updateOrderedService/:id', (req, res) => {
+    console.log(req.params.id);
+    const updatedStatus = req.body.status;
     ordersCollection
     .updateOne(
-      {id: orderId},
+      { serviceId: req.params.id },
       {
-        $set: {serviceStatus: orderStatus},
-      })
+        $set: { serviceStatus: updatedStatus },
+      }
+    )
     .then((result) => {
       res.send(result.modifiedCount > 0);
-    });
-  });
-
-
+    })
+  })
 
 
   app.post('/addReview', (req, res) => {
@@ -114,6 +121,12 @@ client.connect((err) => {
       res.send(items);
     })
   })
+
+  app.delete("/removeService/:id", (req, res) => {
+    servicesCollection.deleteOne({ id: req.params.id }).then((documents) => {
+      res.send(documents.deletedCount > 0);
+    });
+  });
 
 });
 
