@@ -34,10 +34,8 @@ client.connect((err) => {
 
   app.post('/addService', (req, res) => {
     const newService = req.body;
-    console.log('adding new event: ', newService);
     servicesCollection.insertOne(newService)
     .then(result => {
-      console.log('inserted count', result.insertedCount);
       res.send(result.insertedCount > 0);
     })
   })
@@ -51,10 +49,8 @@ client.connect((err) => {
 
   app.post('/addAdmin', (req, res) => {
     const newAdmin = req.body;
-    console.log('adding new admin: ', newAdmin);
     adminsCollection.insertOne(newAdmin)
     .then(result => {
-      console.log('inserted count', result.insertedCount);
       res.send(result.insertedCount > 0);
     })
   })
@@ -74,7 +70,6 @@ client.connect((err) => {
   })
 
   app.get('/loadAllBookingsByEmail/:email', (req, res) => {
-    console.log(req.params.email);
     ordersCollection.find({email: req.params.email})
     .toArray((err, service) => {
       res.send(service);
@@ -90,7 +85,6 @@ client.connect((err) => {
   });
 
   app.patch('/updateOrderedService/:id', (req, res) => {
-    console.log(req.params.id);
     const updatedStatus = req.body.status;
     ordersCollection
     .updateOne(
@@ -104,13 +98,19 @@ client.connect((err) => {
     })
   })
 
+  app.get('/loadSingleOrder/:id', (req, res) => {
+    // console.log('9999999', req.params.id);
+    ordersCollection.find({serviceId: req.params.id})
+    .toArray((err, service) => {
+      res.send(service);
+    })
+  })
+
 
   app.post('/addReview', (req, res) => {
     const newReview = req.body;
-    console.log('adding new event: ', newReview);
     reviewCollection.insertOne(newReview)
     .then(result => {
-      console.log('inserted count', result.insertedCount);
       res.send(result.insertedCount > 0);
     })
   })
