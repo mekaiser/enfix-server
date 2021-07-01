@@ -99,7 +99,6 @@ client.connect((err) => {
   })
 
   app.get('/loadSingleOrder/:id', (req, res) => {
-    // console.log('9999999', req.params.id);
     ordersCollection.find({serviceId: req.params.id})
     .toArray((err, service) => {
       res.send(service);
