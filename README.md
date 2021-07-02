@@ -28,4 +28,4 @@ ENFIX is a dynamic electronics repairing website where users can book a service 
 
 ### `LIVE SITE:` [ENFIX](https://enfix-web.web.app/)
 
-**Client Repository:** **[ENFIX CLIENT](https://github.com/mekaiser/enfix-client)**
+**_Client Repository:_** **_[ENFIX CLIENT](https://github.com/mekaiser/enfix-client)_**
