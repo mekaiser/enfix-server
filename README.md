@@ -25,6 +25,6 @@ ENFIX is a dynamic electronics repairing website where users can book a service 
 - Bootstrap5
 - Stripe
 
-### LIVE SITE
+### `LIVE SITE: [ENFIX](https://enfix-web.web.app/)`
 
-Visit - https://enfix-web.web.app/
+Client Repository: [ENFIX CLIENT](https://github.com/mekaiser/enfix-client)
