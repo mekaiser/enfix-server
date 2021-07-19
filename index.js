@@ -99,8 +99,8 @@ client.connect((err) => {
     })
   })
 
-  app.get('/loadSingleOrder/:id', (req, res) => {
-    ordersCollection.find({serviceId: req.params.id})
+  app.get('/loadSingleOrder/:paymentId', (req, res) => {
+    ordersCollection.find({paymentId: req.params.paymentId})
     .toArray((err, service) => {
       res.send(service);
     })
