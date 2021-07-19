@@ -88,7 +88,7 @@ client.connect((err) => {
     const updatedStatus = req.body.status;
     ordersCollection
     .updateOne(
-      { serviceId: req.params.id },
+      { $and: [{serviceId: req.params.id}, {serviceId: req.params.email}] },
       {
         $set: { serviceStatus: updatedStatus },
       }
